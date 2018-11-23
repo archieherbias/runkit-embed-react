@@ -8,20 +8,19 @@
 
 ```bash
 npm install --save runkit-embed-react
+yarn add runkit-embed-react
 ```
 
 ## Usage
 
 ```jsx
-import React, { Component } from 'react'
+import React from 'react';
 
-import MyComponent from 'runkit-embed-react'
+import Embed from 'runkit-embed-react';
 
-class Example extends Component {
-  render () {
-    return (
-      <MyComponent />
-    )
+class Example extends React.Component {
+  render() {
+    return <Embed source={`console.log("Hello World!")`} />;
   }
 }
 ```

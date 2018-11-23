@@ -1,13 +1,17 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
-import ExampleComponent from 'runkit-embed-react'
+import Embed from 'runkit-embed-react';
 
 export default class App extends Component {
-  render () {
+  run = () => {
+    this.embed.evaluate();
+  };
+  render() {
     return (
       <div>
-        <ExampleComponent text='Modern React component module' />
+        <Embed ref={instance => (this.embed = instance)} />
+        <button onClick={this.run}>Run</button>
       </div>
-    )
+    );
   }
 }

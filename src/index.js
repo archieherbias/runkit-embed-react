@@ -1,22 +1,69 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import styles from './styles.css'
+class Embed extends React.Component {
+  componentDidMount = () => {
+    const element = this.wrapper;
+    const options = { ...this.props, element };
 
-export default class ExampleComponent extends Component {
-  static propTypes = {
-    text: PropTypes.string
-  }
+    this.embed = RunKit.createNotebook(options);
+  };
 
-  render() {
-    const {
-      text
-    } = this.props
+  componentWillUnmount = () => {
+    if (this.embed) {
+      this.embed.destroy();
+      this.embed = null;
+    }
+  };
 
-    return (
-      <div className={styles.test}>
-        Example Component: {text}
-      </div>
-    )
-  }
+  componentDidUpdate = prevProps => {
+    if (this.embed) {
+      if (prevProps.source !== this.props.source) {
+        this.embed.setSource(this.props.source);
+      }
+
+      if (prevProps.preamble !== this.props.preamble) {
+        this.embed.setPreamble(this.props.preamble);
+      }
+    }
+  };
+
+  evaluate = callback => {
+    if (this.embed) {
+      this.embed.evaluate(callback);
+    }
+  };
+
+  getSource = callback => {
+    if (this.embed) {
+      this.embed.getSource(callback);
+    }
+  };
+
+  getURL = () => {
+    if (this.embed) {
+      return this.embed.URL;
+    }
+  };
+
+  render = () => {
+    return <div ref={instance => (this.wrapper = instance)} />;
+  };
 }
+
+Embed.propTypes = {
+  source: PropTypes.string,
+  readOnly: PropTypes.bool,
+  mode: PropTypes.string,
+  nodeVersion: PropTypes.string,
+  env: PropTypes.array,
+  title: PropTypes.string,
+  minHeight: PropTypes.string,
+  packageTimestamp: PropTypes.string,
+  preamble: PropTypes.string,
+  onLoad: PropTypes.func,
+  onURLChanged: PropTypes.func,
+  onEvaluate: PropTypes.func,
+};
+
+export default Embed;
