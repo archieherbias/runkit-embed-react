@@ -6,9 +6,19 @@
 
 ## Install
 
+Install the package using npm or yarn.
+
 ```bash
 npm install --save runkit-embed-react
 yarn add runkit-embed-react
+```
+
+Add the Runkit embed script to your page.
+
+```html
+<head>
+  <script src="https://embed.runkit.com"></script>
+</head>
 ```
 
 ## Usage
@@ -24,6 +34,10 @@ class Example extends React.Component {
   }
 }
 ```
+
+## Docs
+
+Check out the [RunKit embed docs](https://runkit.com/docs/embed#options).
 
 ## License
 
